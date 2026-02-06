@@ -1,3 +1,6 @@
+Here’s the full single‑file HTML with a Light/Dark switch (no memory) and at least 6 cards in every section except Quick Links. I also added one extra section.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +27,17 @@
       --radius: 16px;
     }
 
+    .theme-light {
+      --bg: #f5f7fb;
+      --bg-accent: #eef2f7;
+      --card: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(20, 20, 20, 0.08);
+      --text: #0f172a;
+      --muted: #5b6b82;
+      --accent: #0ea5a6;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
     * { box-sizing: border-box; }
 
     body {
@@ -38,19 +52,42 @@
     }
 
     .page {
-      max-width: 920px;
+      max-width: 980px;
       margin: 0 auto;
       padding: 32px 20px 60px;
     }
 
     header {
-      margin-bottom: 28px;
       display: grid;
       gap: 12px;
+      margin-bottom: 24px;
     }
 
     h1 { margin: 0; font-size: 2.2rem; }
     .subtitle { color: var(--muted); margin: 0; }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      font-size: 0.9rem;
+    }
 
     .search {
       display: flex;
@@ -139,6 +176,10 @@
       transition: 0.2s;
     }
 
+    .theme-light .card {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
     .card a {
       text-decoration: none;
       color: var(--text);
@@ -161,11 +202,19 @@
     }
   </style>
 </head>
-<body>
+<body class="theme-dark">
   <div class="page">
     <header>
-      <h1>Welcome, z.burjan!</h1>
-      <p class="subtitle">...wired in</p>
+      <div class="top-row">
+        <div>
+          <h1>Central Hub</h1>
+          <p class="subtitle">Personal dashboard</p>
+        </div>
+        <button id="modeToggle" class="mode-toggle" type="button">
+          <i class="fa-solid fa-moon"></i>
+          <span>Dark Mode</span>
+        </button>
+      </div>
       <div class="search">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input id="searchInput" type="text" placeholder="Search links..." />
@@ -195,18 +244,18 @@
             <span class="desc">Schedule & events</span>
           </a>
         </div>
-        <div class="card" data-title="Outlook" data-tags="banking money">
-          <a href="https://outlook.com" target="_blank" rel="noopener">
+        <div class="card" data-title="Revolut" data-tags="banking money">
+          <a href="https://revolut.com" target="_blank" rel="noopener">
             <i class="fa-solid fa-building-columns icon"></i>
-            <span class="label">Outlook</span>
-            <span class="desc">Work email</span>
+            <span class="label">Revolut</span>
+            <span class="desc">Accounts overview</span>
           </a>
         </div>
-        <div class="card" data-title="About me" data-tags="site personal work">
-          <a href="https://1drv.ms/w/c/C8CD0A1676FFA805/AbWVQ3L9EpxMkm41OyBB_Fw?e=fk9nvP" target="_blank" rel="noopener">
+        <div class="card" data-title="Portfolio" data-tags="site personal work">
+          <a href="#" target="_blank" rel="noopener">
             <i class="fa-solid fa-user-astronaut icon"></i>
-            <span class="label">About me</span>
-            <span class="desc">Personal doc</span>
+            <span class="label">Portfolio</span>
+            <span class="desc">Personal site</span>
           </a>
         </div>
       </div>
@@ -242,6 +291,27 @@
             <span class="desc">Docs & files</span>
           </a>
         </div>
+        <div class="card" data-title="Notes" data-tags="notes ideas">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-note-sticky icon"></i>
+            <span class="label">Notes</span>
+            <span class="desc">Ideas & drafts</span>
+          </a>
+        </div>
+        <div class="card" data-title="Tasks" data-tags="todo checklist">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-list-check icon"></i>
+            <span class="label">Tasks</span>
+            <span class="desc">Daily todos</span>
+          </a>
+        </div>
+        <div class="card" data-title="Photos" data-tags="gallery memories">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-image icon"></i>
+            <span class="label">Photos</span>
+            <span class="desc">Personal albums</span>
+          </a>
+        </div>
       </div>
     </details>
 
@@ -275,6 +345,27 @@
             <span class="desc">Spending overview</span>
           </a>
         </div>
+        <div class="card" data-title="Investments" data-tags="stocks portfolio">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-arrow-trend-up icon"></i>
+            <span class="label">Investments</span>
+            <span class="desc">Portfolio view</span>
+          </a>
+        </div>
+        <div class="card" data-title="Invoices" data-tags="billing receipts">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-receipt icon"></i>
+            <span class="label">Invoices</span>
+            <span class="desc">Billing archive</span>
+          </a>
+        </div>
+        <div class="card" data-title="Taxes" data-tags="tax documents">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-file-invoice-dollar icon"></i>
+            <span class="label">Taxes</span>
+            <span class="desc">Yearly filings</span>
+          </a>
+        </div>
       </div>
     </details>
 
@@ -294,11 +385,32 @@
             <span class="desc">Landing page</span>
           </a>
         </div>
+        <div class="card" data-title="Project B" data-tags="saaS app">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-cubes icon"></i>
+            <span class="label">Project B</span>
+            <span class="desc">Product dashboard</span>
+          </a>
+        </div>
         <div class="card" data-title="Stripe" data-tags="payments billing">
           <a href="https://dashboard.stripe.com" target="_blank" rel="noopener">
             <i class="fa-solid fa-credit-card icon"></i>
             <span class="label">Stripe</span>
             <span class="desc">Payments</span>
+          </a>
+        </div>
+        <div class="card" data-title="Analytics" data-tags="metrics stats">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-chart-column icon"></i>
+            <span class="label">Analytics</span>
+            <span class="desc">Traffic insights</span>
+          </a>
+        </div>
+        <div class="card" data-title="Support" data-tags="helpdesk tickets">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-headset icon"></i>
+            <span class="label">Support</span>
+            <span class="desc">Customer issues</span>
           </a>
         </div>
         <div class="card" data-title="Portfolio" data-tags="personal brand">
@@ -341,6 +453,81 @@
             <span class="desc">Articles & notes</span>
           </a>
         </div>
+        <div class="card" data-title="Tutorials" data-tags="how-to guides">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-book-open icon"></i>
+            <span class="label">Tutorials</span>
+            <span class="desc">Quick how-tos</span>
+          </a>
+        </div>
+        <div class="card" data-title="Research" data-tags="papers studies">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-flask icon"></i>
+            <span class="label">Research</span>
+            <span class="desc">Papers & notes</span>
+          </a>
+        </div>
+        <div class="card" data-title="Bookmarks" data-tags="links favorites">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-bookmark icon"></i>
+            <span class="label">Bookmarks</span>
+            <span class="desc">Saved links</span>
+          </a>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="section-title-content">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>Health / Wellness</span>
+        </div>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </summary>
+      <div class="grid">
+        <div class="card" data-title="Workouts" data-tags="fitness gym">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-dumbbell icon"></i>
+            <span class="label">Workouts</span>
+            <span class="desc">Training plans</span>
+          </a>
+        </div>
+        <div class="card" data-title="Nutrition" data-tags="diet meals">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-apple-whole icon"></i>
+            <span class="label">Nutrition</span>
+            <span class="desc">Meal tracking</span>
+          </a>
+        </div>
+        <div class="card" data-title="Sleep" data-tags="rest recovery">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-moon icon"></i>
+            <span class="label">Sleep</span>
+            <span class="desc">Sleep stats</span>
+          </a>
+        </div>
+        <div class="card" data-title="Meditation" data-tags="mindfulness">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-spa icon"></i>
+            <span class="label">Meditation</span>
+            <span class="desc">Focus & calm</span>
+          </a>
+        </div>
+        <div class="card" data-title="Health Records" data-tags="medical">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-file-medical icon"></i>
+            <span class="label">Health Records</span>
+            <span class="desc">Documents</span>
+          </a>
+        </div>
+        <div class="card" data-title="Appointments" data-tags="doctor">
+          <a href="#" target="_blank" rel="noopener">
+            <i class="fa-solid fa-calendar-check icon"></i>
+            <span class="label">Appointments</span>
+            <span class="desc">Visits & checkups</span>
+          </a>
+        </div>
       </div>
     </details>
   </div>
@@ -349,6 +536,15 @@
     const searchInput = document.getElementById("searchInput");
     const cards = Array.from(document.querySelectorAll(".card"));
     const sections = Array.from(document.querySelectorAll("details"));
+    const modeToggle = document.getElementById("modeToggle");
+    const body = document.body;
+
+    modeToggle.addEventListener("click", () => {
+      const isLight = body.classList.toggle("theme-light");
+      modeToggle.innerHTML = isLight
+        ? '<i class="fa-solid fa-sun"></i><span>Light Mode</span>'
+        : '<i class="fa-solid fa-moon"></i><span>Dark Mode</span>';
+    });
 
     searchInput.addEventListener("input", (e) => {
       const query = e.target.value.toLowerCase().trim();
@@ -375,3 +571,4 @@
   </script>
 </body>
 </html>
+```
