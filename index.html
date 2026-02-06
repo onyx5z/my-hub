@@ -24,13 +24,11 @@
       --radius: 16px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+      font-family: "Segoe UI", "Inter", sans-serif;
       color: var(--text);
       background:
         radial-gradient(1000px 600px at 20% -10%, rgba(79, 209, 197, 0.15), transparent 50%),
@@ -40,29 +38,19 @@
     }
 
     .page {
-      max-width: 1200px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 32px 20px 60px;
     }
 
     header {
+      margin-bottom: 28px;
       display: grid;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 24px;
+      gap: 12px;
     }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(1.8rem, 2.5vw, 2.6rem);
-      letter-spacing: 0.4px;
-    }
-
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
+    h1 { margin: 0; font-size: 2.2rem; }
+    .subtitle { color: var(--muted); margin: 0; }
 
     .search {
       display: flex;
@@ -76,10 +64,7 @@
       box-shadow: var(--shadow);
     }
 
-    .search i {
-      color: var(--muted);
-    }
-
+    .search i { color: var(--muted); }
     .search input {
       flex: 1;
       background: transparent;
@@ -89,268 +74,302 @@
       font-size: 1rem;
     }
 
-    .section {
-      margin-top: 32px;
+    details {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
     }
 
-    .section-title {
+    summary {
+      list-style: none;
+      padding: 18px 22px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 1.05rem;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    .section-title-content {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-      font-size: 1.1rem;
-      color: var(--text);
+      gap: 12px;
     }
+
+    .arrow {
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+      color: var(--muted);
+    }
+
+    details[open] {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--accent);
+    }
+
+    details[open] .arrow { transform: rotate(180deg); }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      padding: 0 20px 20px 20px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .card {
-      position: relative;
-      padding: 16px;
-      border-radius: var(--radius);
-      background: var(--card);
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.2);
       border: 1px solid var(--card-border);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      transition: 0.2s;
     }
 
     .card a {
       text-decoration: none;
       color: var(--text);
       display: grid;
-      gap: 10px;
-    }
-
-    .card .icon {
-      font-size: 1.2rem;
-      color: var(--accent);
-    }
-
-    .card .label {
-      font-weight: 600;
-    }
-
-    .card .desc {
-      color: var(--muted);
-      font-size: 0.9rem;
+      gap: 6px;
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(79, 209, 197, 0.45);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+      border-color: var(--accent);
+      background: rgba(79, 209, 197, 0.1);
+      transform: translateY(-2px);
     }
 
-    .quick-links .card {
-      border-color: rgba(79, 209, 197, 0.35);
-    }
+    .card .label { font-weight: 600; }
+    .card .desc { font-size: 0.8rem; color: var(--muted); }
+    .card .icon { color: var(--accent); font-size: 1.05rem; }
 
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      margin: 32px 0 8px;
-    }
-
-    @media (max-width: 700px) {
-      header {
-        gap: 10px;
-      }
-
-      .page {
-        padding: 24px 16px 50px;
-      }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <div class="page">
     <header>
-      <div>
-        <h1>Central Hub</h1>
-        <p class="subtitle">Personal dashboard for your links and projects</p>
-      </div>
+      <h1>Central Hub</h1>
+      <p class="subtitle">Personal dashboard</p>
       <div class="search">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input id="searchInput" type="text" placeholder="Search your links..." />
+        <input id="searchInput" type="text" placeholder="Search links..." />
       </div>
     </header>
 
-    <section class="section quick-links">
-      <div class="section-title">
-        <i class="fa-solid fa-bolt"></i>
-        <span>Quick Links</span>
-      </div>
+    <details open>
+      <summary>
+        <div class="section-title-content">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Quick Links</span>
+        </div>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </summary>
       <div class="grid">
-        <div class="card" data-title="Email">
-          <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-            <span class="label">Email</span>
+        <div class="card" data-title="Gmail" data-tags="email inbox personal">
+          <a href="https://gmail.com" target="_blank" rel="noopener">
+            <i class="fa-solid fa-envelope icon"></i>
+            <span class="label">Gmail</span>
             <span class="desc">Primary inbox</span>
           </a>
         </div>
-        <div class="card" data-title="Calendar">
-          <a href="https://calendar.google.com/calendar/u/1/r" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-calendar"></i></span>
+        <div class="card" data-title="Calendar" data-tags="schedule events">
+          <a href="https://calendar.google.com" target="_blank" rel="noopener">
+            <i class="fa-solid fa-calendar icon"></i>
             <span class="label">Calendar</span>
             <span class="desc">Schedule & events</span>
           </a>
         </div>
-        <div class="card" data-title="Banking">
-          <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-building-columns"></i></span>
-            <span class="label">Banking</span>
+        <div class="card" data-title="Revolut" data-tags="banking money">
+          <a href="https://revolut.com" target="_blank" rel="noopener">
+            <i class="fa-solid fa-building-columns icon"></i>
+            <span class="label">Revolut</span>
             <span class="desc">Accounts overview</span>
           </a>
         </div>
-        <div class="card" data-title="Portfolio">
+        <div class="card" data-title="Portfolio" data-tags="site personal work">
           <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-user-astronaut"></i></span>
+            <i class="fa-solid fa-user-astronaut icon"></i>
             <span class="label">Portfolio</span>
             <span class="desc">Personal site</span>
           </a>
         </div>
       </div>
-    </section>
+    </details>
 
-    <div class="divider"></div>
-
-    <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-user"></i>
-        <span>Personal</span>
-      </div>
+    <details open>
+      <summary>
+        <div class="section-title-content">
+          <i class="fa-solid fa-user"></i>
+          <span>Personal</span>
+        </div>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </summary>
       <div class="grid">
-        <div class="card" data-title="Email">
-          <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-            <span class="label">Email</span>
-            <span class="desc">Personal inbox</span>
+        <div class="card" data-title="Gmail" data-tags="email inbox">
+          <a href="https://gmail.com" target="_blank" rel="noopener">
+            <i class="fa-solid fa-envelope icon"></i>
+            <span class="label">Gmail</span>
+            <span class="desc">Personal emails</span>
           </a>
         </div>
-        <div class="card" data-title="Calendar">
-          <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-calendar"></i></span>
+        <div class="card" data-title="Calendar" data-tags="events schedule">
+          <a href="https://calendar.google.com" target="_blank" rel="noopener">
+            <i class="fa-solid fa-calendar icon"></i>
             <span class="label">Calendar</span>
-            <span class="desc">Planning & reminders</span>
+            <span class="desc">Daily schedule</span>
           </a>
         </div>
-        <div class="card" data-title="Drive">
-          <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-cloud"></i></span>
+        <div class="card" data-title="Drive" data-tags="files docs cloud">
+          <a href="https://drive.google.com" target="_blank" rel="noopener">
+            <i class="fa-solid fa-cloud icon"></i>
             <span class="label">Drive</span>
             <span class="desc">Docs & files</span>
           </a>
         </div>
       </div>
-    </section>
+    </details>
 
-    <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-coins"></i>
-        <span>Finance</span>
-      </div>
+    <details>
+      <summary>
+        <div class="section-title-content">
+          <i class="fa-solid fa-coins"></i>
+          <span>Finance</span>
+        </div>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </summary>
       <div class="grid">
-        <div class="card" data-title="Banking">
-          <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-building-columns"></i></span>
-            <span class="label">Banking</span>
-            <span class="desc">Daily finances</span>
+        <div class="card" data-title="Revolut" data-tags="banking accounts">
+          <a href="https://revolut.com" target="_blank" rel="noopener">
+            <i class="fa-solid fa-building-columns icon"></i>
+            <span class="label">Revolut</span>
+            <span class="desc">Banking app</span>
           </a>
         </div>
-        <div class="card" data-title="Crypto">
-          <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-brands fa-bitcoin"></i></span>
-            <span class="label">Crypto</span>
-            <span class="desc">Wallets & exchanges</span>
+        <div class="card" data-title="Binance" data-tags="crypto trading">
+          <a href="https://binance.com" target="_blank" rel="noopener">
+            <i class="fa-brands fa-bitcoin icon"></i>
+            <span class="label">Binance</span>
+            <span class="desc">Trading & wallets</span>
           </a>
         </div>
-        <div class="card" data-title="Budget Tracker">
+        <div class="card" data-title="Budget Tracker" data-tags="budget finance">
           <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-chart-line"></i></span>
+            <i class="fa-solid fa-chart-line icon"></i>
             <span class="label">Budget Tracker</span>
             <span class="desc">Spending overview</span>
           </a>
         </div>
       </div>
-    </section>
+    </details>
 
-    <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-briefcase"></i>
-        <span>Companies / Side Hustles</span>
-      </div>
+    <details>
+      <summary>
+        <div class="section-title-content">
+          <i class="fa-solid fa-rocket"></i>
+          <span>Companies / Side Hustles</span>
+        </div>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </summary>
       <div class="grid">
-        <div class="card" data-title="Project A">
+        <div class="card" data-title="Project A" data-tags="startup product">
           <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-rocket"></i></span>
+            <i class="fa-solid fa-briefcase icon"></i>
             <span class="label">Project A</span>
-            <span class="desc">Main venture</span>
+            <span class="desc">Landing page</span>
           </a>
         </div>
-        <div class="card" data-title="Project B">
-          <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-flask"></i></span>
-            <span class="label">Project B</span>
-            <span class="desc">Experiments & R&D</span>
+        <div class="card" data-title="Stripe" data-tags="payments billing">
+          <a href="https://dashboard.stripe.com" target="_blank" rel="noopener">
+            <i class="fa-solid fa-credit-card icon"></i>
+            <span class="label">Stripe</span>
+            <span class="desc">Payments</span>
           </a>
         </div>
-        <div class="card" data-title="Portfolio">
+        <div class="card" data-title="Portfolio" data-tags="personal brand">
           <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-user-astronaut"></i></span>
+            <i class="fa-solid fa-user-astronaut icon"></i>
             <span class="label">Portfolio</span>
             <span class="desc">Showcase work</span>
           </a>
         </div>
       </div>
-    </section>
+    </details>
 
-    <section class="section">
-      <div class="section-title">
-        <i class="fa-solid fa-graduation-cap"></i>
-        <span>Learning / Resources</span>
-      </div>
+    <details>
+      <summary>
+        <div class="section-title-content">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Learning / Resources</span>
+        </div>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </summary>
       <div class="grid">
-        <div class="card" data-title="Documentation">
+        <div class="card" data-title="Documentation" data-tags="docs reference">
           <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-book"></i></span>
+            <i class="fa-solid fa-book icon"></i>
             <span class="label">Documentation</span>
             <span class="desc">Product & API docs</span>
           </a>
         </div>
-        <div class="card" data-title="Courses">
+        <div class="card" data-title="Courses" data-tags="learning training">
           <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-laptop-code"></i></span>
+            <i class="fa-solid fa-laptop-code icon"></i>
             <span class="label">Courses</span>
             <span class="desc">Training & lessons</span>
           </a>
         </div>
-        <div class="card" data-title="Reading List">
+        <div class="card" data-title="Reading List" data-tags="articles notes">
           <a href="#" target="_blank" rel="noopener">
-            <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+            <i class="fa-solid fa-list-check icon"></i>
             <span class="label">Reading List</span>
             <span class="desc">Articles & notes</span>
           </a>
         </div>
       </div>
-    </section>
+    </details>
   </div>
 
   <script>
     const searchInput = document.getElementById("searchInput");
     const cards = Array.from(document.querySelectorAll(".card"));
+    const sections = Array.from(document.querySelectorAll("details"));
 
     searchInput.addEventListener("input", (e) => {
       const query = e.target.value.toLowerCase().trim();
-      cards.forEach((card) => {
-        const title = (card.dataset.title || "").toLowerCase();
-        const text = card.innerText.toLowerCase();
-        const match = title.includes(query) || text.includes(query);
-        card.style.display = match ? "block" : "none";
+
+      sections.forEach((section) => {
+        let hasMatch = false;
+        const sectionCards = Array.from(section.querySelectorAll(".card"));
+
+        sectionCards.forEach((card) => {
+          const text = card.innerText.toLowerCase();
+          const tags = (card.dataset.tags || "").toLowerCase();
+          const title = (card.dataset.title || "").toLowerCase();
+          const match = text.includes(query) || tags.includes(query) || title.includes(query);
+
+          card.style.display = match || query === "" ? "block" : "none";
+          if (match) hasMatch = true;
+        });
+
+        if (query !== "") {
+          section.open = hasMatch;
+        }
       });
     });
   </script>
