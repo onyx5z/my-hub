@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Central Hub</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-8z0n1gT9y3u7qk2a9h7iHfO1Q2u8d4jU6Tz1lXxK2yq0y8M1E2Lr6P2t1kXHkK2z8o7G1zXQ5B0mQK9K+Q=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --bg-accent: #111826;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.15);
+      --text: #e8eef6;
+      --muted: #9bb0c7;
+      --accent: #4fd1c5;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 600px at 20% -10%, rgba(79, 209, 197, 0.15), transparent 50%),
+        radial-gradient(800px 500px at 100% 10%, rgba(99, 102, 241, 0.18), transparent 50%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    header {
+      display: grid;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+      letter-spacing: 0.4px;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+
+    .search i {
+      color: var(--muted);
+    }
+
+    .search input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .section {
+      margin-top: 32px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      position: relative;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: var(--text);
+      display: grid;
+      gap: 10px;
+    }
+
+    .card .icon {
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    .card .label {
+      font-weight: 600;
+    }
+
+    .card .desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(79, 209, 197, 0.45);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+    }
+
+    .quick-links .card {
+      border-color: rgba(79, 209, 197, 0.35);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      margin: 32px 0 8px;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        gap: 10px;
+      }
+
+      .page {
+        padding: 24px 16px 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <h1>Central Hub</h1>
+        <p class="subtitle">Personal dashboard for your links and projects</p>
+      </div>
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="searchInput" type="text" placeholder="Search your links..." />
+      </div>
+    </header>
+
+    <section class="section quick-links">
+      <div class="section-title">
+        <i class="fa-solid fa-bolt"></i>
+        <span>Quick Links</span>
+      </div>
+      <div class="grid">
+        <div class="card" data-title="Email">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+            <span class="label">Email</span>
+            <span class="desc">Primary inbox</span>
+          </a>
+        </div>
+        <div class="card" data-title="Calendar">
+          <a href="https://calendar.google.com/calendar/u/1/r" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-calendar"></i></span>
+            <span class="label">Calendar</span>
+            <span class="desc">Schedule & events</span>
+          </a>
+        </div>
+        <div class="card" data-title="Banking">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-building-columns"></i></span>
+            <span class="label">Banking</span>
+            <span class="desc">Accounts overview</span>
+          </a>
+        </div>
+        <div class="card" data-title="Portfolio">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-user-astronaut"></i></span>
+            <span class="label">Portfolio</span>
+            <span class="desc">Personal site</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section">
+      <div class="section-title">
+        <i class="fa-solid fa-user"></i>
+        <span>Personal</span>
+      </div>
+      <div class="grid">
+        <div class="card" data-title="Email">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+            <span class="label">Email</span>
+            <span class="desc">Personal inbox</span>
+          </a>
+        </div>
+        <div class="card" data-title="Calendar">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-calendar"></i></span>
+            <span class="label">Calendar</span>
+            <span class="desc">Planning & reminders</span>
+          </a>
+        </div>
+        <div class="card" data-title="Drive">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-cloud"></i></span>
+            <span class="label">Drive</span>
+            <span class="desc">Docs & files</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <i class="fa-solid fa-coins"></i>
+        <span>Finance</span>
+      </div>
+      <div class="grid">
+        <div class="card" data-title="Banking">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-building-columns"></i></span>
+            <span class="label">Banking</span>
+            <span class="desc">Daily finances</span>
+          </a>
+        </div>
+        <div class="card" data-title="Crypto">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-brands fa-bitcoin"></i></span>
+            <span class="label">Crypto</span>
+            <span class="desc">Wallets & exchanges</span>
+          </a>
+        </div>
+        <div class="card" data-title="Budget Tracker">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-chart-line"></i></span>
+            <span class="label">Budget Tracker</span>
+            <span class="desc">Spending overview</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <i class="fa-solid fa-briefcase"></i>
+        <span>Companies / Side Hustles</span>
+      </div>
+      <div class="grid">
+        <div class="card" data-title="Project A">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-rocket"></i></span>
+            <span class="label">Project A</span>
+            <span class="desc">Main venture</span>
+          </a>
+        </div>
+        <div class="card" data-title="Project B">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-flask"></i></span>
+            <span class="label">Project B</span>
+            <span class="desc">Experiments & R&D</span>
+          </a>
+        </div>
+        <div class="card" data-title="Portfolio">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-user-astronaut"></i></span>
+            <span class="label">Portfolio</span>
+            <span class="desc">Showcase work</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>Learning / Resources</span>
+      </div>
+      <div class="grid">
+        <div class="card" data-title="Documentation">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-book"></i></span>
+            <span class="label">Documentation</span>
+            <span class="desc">Product & API docs</span>
+          </a>
+        </div>
+        <div class="card" data-title="Courses">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-laptop-code"></i></span>
+            <span class="label">Courses</span>
+            <span class="desc">Training & lessons</span>
+          </a>
+        </div>
+        <div class="card" data-title="Reading List">
+          <a href="#" target="_blank" rel="noopener">
+            <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+            <span class="label">Reading List</span>
+            <span class="desc">Articles & notes</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const cards = Array.from(document.querySelectorAll(".card"));
+
+    searchInput.addEventListener("input", (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      cards.forEach((card) => {
+        const title = (card.dataset.title || "").toLowerCase();
+        const text = card.innerText.toLowerCase();
+        const match = title.includes(query) || text.includes(query);
+        card.style.display = match ? "block" : "none";
+      });
+    });
+  </script>
+</body>
+</html>
